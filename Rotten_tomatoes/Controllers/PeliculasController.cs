@@ -82,40 +82,45 @@ namespace Rotten_tomatoes.Controllers
                 htmlDoc.LoadHtml(html);
 
 
-                string titulo  = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("Name"))
-                    .ToList()[0].InnerText;
+                string titulo  = htmlDoc.DocumentNode.Descendants("img")
+                .Where(node => node.ParentNode.GetAttributeValue("class", "").Contains("thumbnail")).
+                ToList().First().GetAttributeValue("alt", " ").Remove(0, 18);
 
-                string calificacion_critica = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("Price (Intraday)"))
-                    .ToList()[0].FirstChild.InnerText;
+                string calificacion_critica = htmlDoc.DocumentNode.Descendants("score-board")
+                .Where(node => node.GetAttributeValue("id", "").Contains("scoreboard"))
+                .ToList().First().GetAttributeValue("tomatometerscore", "");
 
-                string calificacion_audiencia = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("Change"))
-                    .ToList()[0].FirstChild.FirstChild.InnerText;
+                string calificacion_audiencia = htmlDoc.DocumentNode.Descendants("score-board")
+                .Where(node => node.GetAttributeValue("id", "").Contains("scoreboard"))
+                .ToList().First().GetAttributeValue("audiencescore", "");
 
-                string sinopsis = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("% Change"))
-                    .ToList()[0].FirstChild.FirstChild.InnerText;
+                string sinopsis = htmlDoc.DocumentNode.Descendants("p")
+                .Where(node => node.GetAttributeValue("data-qa", "").
+                Contains("movie-info-synopsis")).ToList().First().InnerText.Trim();
 
-                string genero = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("% Change"))
-                    .ToList()[0].FirstChild.FirstChild.InnerText;
+                var info_central_ = htmlDoc.DocumentNode.Descendants("li")
+                .Where(node => node.GetAttributeValue("class", "").Contains("info-item")).ToList();
 
-                string premier = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("% Change"))
-                    .ToList()[0].FirstChild.FirstChild.InnerText;
+                string genero = "Accion";
+                string duracion = "2h";
+                string premier = "10/07/23";
+                
 
-                string duracion = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("% Change"))
-                    .ToList()[0].FirstChild.FirstChild.InnerText;
+                //foreach (var node in info_central_)
+                //{
+                //    var info = node.Descendants("b").Where(node => node.GetAttributeValue("class", "")
+                //    .Contains("info-item-label")).ToList().First().InnerText;
+
+
+                //    var valor = node.Descendants("span").Where(node => node.GetAttributeValue("class", "")
+                //    .Contains("info-item-value")).ToList().First().InnerText;
+
+                //     if (info == "Genre:") { genero = valor.Trim(); }
+
+                //     else if (info == "Release Date (Theaters):") { premier = valor.Trim().Substring(0, 12); }
+
+                //     else if (info == "Runtime:") { duracion = valor.Trim(); }
+                //}
 
                 return new Pelicula
                 {
