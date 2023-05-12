@@ -19,61 +19,55 @@ namespace Rotten_tomatoes.Controllers
         {
             return View();
         }
+        //public IActionResult Tops()
+        //{
+        //    List<List<string>> tops_peliculas = scrape_data();
+           
 
-        List<List<string>> scrape_data()
-        {
-            //Accediendo a url
-            async Task<string> call_url(string fullUrl)
-            {
-                HttpClient client = new HttpClient();
-                var response = await client.GetStringAsync(fullUrl);
-                return response;
-            }
+        //    ViewData["peliculas"] = tops_peliculas;
+        //    return View();
+        //}
 
-            //parseando datos
-            List<List<string>> parse_html(string html)
-            {
-                HtmlDocument htmlDoc = new HtmlDocument();
-                htmlDoc.LoadHtml(html);
+        //List<List<string>> scrape_data()
+        //{
+        //    //Accediendo a url
+        //    async Task<string> call_url(string fullUrl)
+        //    {
+        //        HttpClient client = new HttpClient();
+        //        var response = await client.GetStringAsync(fullUrl);
+        //        return response;
+        //    }
 
-                //LINQ
-                var parsed_data = htmlDoc.DocumentNode.Descendants("ul")
-                    .Where(node => node.GetAttributeValue("slot", "").Contains("list-items")).
-                    ToList();
+        //    //parseando datos
+        //    List<List<string>> parse_html(string html)
+        //    {
+        //        HtmlDocument htmlDoc = new HtmlDocument();
+        //        htmlDoc.LoadHtml(html);
 
-                List<List<string>> top_data = new List<List<string>>();
-                foreach (HtmlNode pelicula in parsed_data)
-                {
-                    var titulos = pelicula.Descendants("li")
-                    .Select(node => node.Descendants("li").FirstOrDefault()?.InnerText)
-                    .ToList();
+        //        //LINQ
+        //        var parsed_data = htmlDoc.DocumentNode.Descendants("ul")
+        //            .Where(node => node.GetAttributeValue("slot", "").Contains("list-items")).
+        //            ToList();
 
-                    string crypto_price = pelicula.SelectNodes("td")
-                        .Where(node => node.GetAttributeValue("aria-label", "")
-                        .Contains("Price (Intraday)"))
-                        .ToList()[0].FirstChild.InnerText;
+        //        List<List<string>> top_data = new List<List<string>>();
+        //        foreach (HtmlNode pelicula in parsed_data)
+        //        {
+        //            var titulos = pelicula.Descendants("li")
+        //            .Select(node => node.Descendants("li").FirstOrDefault()?.InnerText)
+        //            .ToList();
 
-                    string crypto_change = pelicula.SelectNodes("td")
-                        .Where(node => node.GetAttributeValue("aria-label", "")
-                        .Contains("Change"))
-                        .ToList()[0].FirstChild.FirstChild.InnerText;
 
-                    string crypto_changep = pelicula.SelectNodes("td")
-                        .Where(node => node.GetAttributeValue("aria-label", "")
-                        .Contains("% Change"))
-                        .ToList()[0].FirstChild.FirstChild.InnerText;
+        //            top_data.Add(new List<string>() {titulos});
+        //        }
 
-                    top_data.Add(new List<string>() {});
-                }
+        //        return top_data;
+        //    }
 
-                return top_data;
-            }
-
-            string url = "https://www.rottentomatoes.com/";
-            var response = call_url(url).Result;
-            List<List<string>> data = parse_html(response);
-            return data;
-        }
+        //    string url = "https://www.rottentomatoes.com/";
+        //    var response = call_url(url).Result;
+        //    List<List<string>> data = parse_html(response);
+        //    return data;
+        //}
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

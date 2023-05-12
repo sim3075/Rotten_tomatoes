@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Rotten_tomatoes.Models.TopPeliculas>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Top Peliculas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Titulo
+            </th>
+            <th>
+                Calificacion de lacritica
+            </th>
+            <th>
+                Calificacion de la audiencia
+            </th>
+            <th>
+                Genero
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Calificacion_critica)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Calificacion_audiencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Ver más</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@using (Html.BeginForm("Tops", "TopPeliculasController", FormMethod.Post))
+{
+    <input type="submit" value="Actualizar" />
+}
+

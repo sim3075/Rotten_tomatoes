@@ -1,11 +1,12 @@
-﻿@model Rotten_tomatoes.Models.TvShow
+﻿@model Rotten_tomatoes.Models.TopTvShow
 
 @{
     ViewData["Title"] = "Create";
 }
 
+<h1>Create</h1>
 
-<h4>TvShow</h4>
+<h4>TopTvShow</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,10 +17,15 @@
                 <input asp-for="Url" class="form-control" />
                 <span asp-validation-for="Url" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
+            <div class="form-group">
                 <label asp-for="Titulo" class="control-label"></label>
                 <input asp-for="Titulo" class="form-control" />
                 <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Img" class="control-label"></label>
+                <input asp-for="Img" class="form-control" />
+                <span asp-validation-for="Img" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Calificacion_critica" class="control-label"></label>
@@ -30,6 +36,11 @@
                 <label asp-for="Calificacion_audiencia" class="control-label"></label>
                 <input asp-for="Calificacion_audiencia" class="form-control" />
                 <span asp-validation-for="Calificacion_audiencia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plataformas" class="control-label"></label>
+                <input asp-for="plataformas" class="form-control" />
+                <span asp-validation-for="plataformas" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Sinopsis" class="control-label"></label>
@@ -45,7 +56,7 @@
                 <label asp-for="Premier" class="control-label"></label>
                 <input asp-for="Premier" class="form-control" />
                 <span asp-validation-for="Premier" class="text-danger"></span>
-            </div>*@
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -54,7 +65,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Volver</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

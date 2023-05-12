@@ -9,17 +9,23 @@
 <p>
     <a asp-action="Create">Agregar Pelicula</a>
 </p>
-<table class="table">
+<input type="text" id="filtroInput" placeholder="Filtrar por crítica">
+<input type="text" id="filtroInput2" placeholder="Filtrar por audiencia">
+<input type="text" id="filtroInput3" placeholder="Filtrar por genero">
+<table class="table" id = "miTabla">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Titulo)
+                Titulo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Calificacion_critica)
+                Calificacion de lacritica
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Calificacion_audiencia)
+                Calificacion de la audiencia
+            </th>
+            <th>
+                Genero
             </th>
             <th></th>
         </tr>
@@ -36,24 +42,74 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Calificacion_audiencia)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Sinopsis)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Genero)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Premier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duracion)
-            </td>*@
-            <td>
-                @*//<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@
-                <a asp-action="Details" asp-route-id="@item.Id">Ver más</a>
-                @*//<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                <a asp-action="Details" asp-route-id="@item.Id">Ver más</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<script>
+    var input = document.getElementById("filtroInput");
+    input.addEventListener("keyup", filtrarCritica);
+    var input2 = document.getElementById("filtroInput2");
+    input2.addEventListener("keyup", filtrarAudiencia);
+    var input3 = document.getElementById("filtroInput3");
+    input3.addEventListener("keyup", filtrarGenero);
+
+    function filtrarCritica() {
+      var filtro = input.value;
+      var tabla = document.getElementById("miTabla");
+      var filas = tabla.getElementsByTagName("tr");
+
+      for (var i = 0; i < filas.length; i++) {
+        var celdaCritica = filas[i].getElementsByTagName("td")[1];
+        if (celdaCritica) {
+          var valorCritica = celdaCritica.textContent;
+          if (valorCritica.indexOf(filtro) > -1) {
+            filas[i].style.display = "";
+          } else {
+            filas[i].style.display = "none";
+          }
+        }
+      }
+    }
+    function filtrarAudiencia() {
+        var filtro = input2.value;
+        var tabla = document.getElementById("miTabla");
+        var filas = tabla.getElementsByTagName("tr");
+
+        for (var i = 0; i < filas.length; i++) {
+            var celdaAudiencia = filas[i].getElementsByTagName("td")[2];
+            if (celdaAudiencia) {
+                var valorAudiencia = celdaAudiencia.textContent;
+                if (valorAudiencia.indexOf(filtro) > -1) {
+                    filas[i].style.display = "";
+                } else {
+                    filas[i].style.display = "none";
+                }
+            }
+        }
+    }
+    function filtrarGenero() {
+        var filtro = input3.value.toUpperCase();
+        var tabla = document.getElementById("miTabla");
+        var filas = tabla.getElementsByTagName("tr");
+
+        for (var i = 0; i < filas.length; i++) {
+            var celdaGenero = filas[i].getElementsByTagName("td")[3];
+            if (celdaGenero) {
+                var valorGenero = celdaGenero.textContent;
+                if (valorGenero.toUpperCase().indexOf(filtro) > -1) {
+                    filas[i].style.display = "";
+                } else {
+                    filas[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

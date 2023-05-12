@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rotten_tomatoes.Data;
 
@@ -10,9 +11,11 @@ using Rotten_tomatoes.Data;
 namespace Rotten_tomatoes.Migrations
 {
     [DbContext(typeof(Rotten_tomatoesContext))]
-    partial class Rotten_tomatoesContextModelSnapshot : ModelSnapshot
+    [Migration("20230512131052_TirthMigration")]
+    partial class TirthMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

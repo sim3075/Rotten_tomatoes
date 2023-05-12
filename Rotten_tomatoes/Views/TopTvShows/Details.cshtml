@@ -1,21 +1,32 @@
-﻿@model Rotten_tomatoes.Models.TvShow
+﻿@model Rotten_tomatoes.Models.TopTvShow
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Details";
 }
 
-<h1>Eliminar</h1>
+<h1>Details</h1>
 
-<h3>Estas seguro de eliminar está recomendación?</h3>
 <div>
-    <h4>TvShow</h4>
+    <h4>TopTvShow</h4>
     <hr />
     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Url)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Url)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Titulo)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Titulo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Img)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Img)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Calificacion_critica)
@@ -28,6 +39,12 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Calificacion_audiencia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.plataformas)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.plataformas)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Sinopsis)
@@ -48,10 +65,8 @@
             @Html.DisplayFor(model => model.Premier)
         </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-        <a asp-action="Index">Volver</a>
-    </form>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

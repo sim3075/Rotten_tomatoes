@@ -1,0 +1,92 @@
+﻿@model Rotten_tomatoes.Models.Pelicula
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Pelicula</h4>
+    <hr />
+    <dl class="row">
+        <div class="col-md-4">
+            <div class="image-container">
+                <img src="@Html.DisplayFor(model => model.Img)" alt="Imagen de la película" />
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h4>Película</h4>
+            <hr />
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Titulo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Titulo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Calificacion_critica)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Calificacion_critica)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Calificacion_audiencia)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Calificacion_audiencia)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Sinopsis)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Sinopsis)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Genero)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Genero)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Premier)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Premier)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Duracion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Duracion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.plataformas)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.plataformas)
+            </dd>
+        </div>
+    </dl>
+</div>
+<div>
+    @*//<a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>*@
+    <a asp-action="Index">Volver</a>
+</div>
+<style>
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    }
+</style>

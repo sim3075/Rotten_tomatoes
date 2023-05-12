@@ -17,5 +17,9 @@ namespace Rotten_tomatoes.Data
         public DbSet<Rotten_tomatoes.Models.Pelicula> Pelicula { get; set; } = default!;
 
         public DbSet<Rotten_tomatoes.Models.TvShow>? TvShow { get; set; }
+
+        public DbSet<Rotten_tomatoes.Models.TopPeliculas>? TopPeliculas { get; set; }
+
+        public DbSet<Rotten_tomatoes.Models.TopTvShow>? TopTvShow { get; set; }
     }
 }

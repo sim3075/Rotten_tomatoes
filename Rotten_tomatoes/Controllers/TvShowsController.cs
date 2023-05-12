@@ -82,39 +82,62 @@ namespace Rotten_tomatoes.Controllers
                 htmlDoc.LoadHtml(html);
 
 
-                string titulo = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("Name"))
-                    .ToList()[0].InnerText;
+                string titulo = htmlDoc.DocumentNode.Descendants("img")
+                .Where(node => node.ParentNode.GetAttributeValue("class", "").Contains("thumbnail")).
+                ToList().First().GetAttributeValue("alt", " ").Remove(0, 18);
 
-                string calificacion_critica = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("Price (Intraday)"))
-                    .ToList()[0].FirstChild.InnerText;
+                string img = htmlDoc.DocumentNode.Descendants("img")
+                .Where(node => node.ParentNode.GetAttributeValue("class", "").Contains("thumbnail")).
+                ToList().First().GetAttributeValue("src", " ").Trim();
 
-                string calificacion_audiencia = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("Change"))
-                    .ToList()[0].FirstChild.FirstChild.InnerText;
+                string calificacion_critica = htmlDoc.DocumentNode.Descendants("score-board")
+                .Where(node => node.GetAttributeValue("id", "").Contains("scoreboard"))
+                .ToList().First().GetAttributeValue("tomatometerscore", "");
 
-                string sinopsis = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("% Change"))
-                    .ToList()[0].FirstChild.FirstChild.InnerText;
+                string calificacion_audiencia = htmlDoc.DocumentNode.Descendants("score-board")
+                .Where(node => node.GetAttributeValue("id", "").Contains("scoreboard"))
+                .ToList().First().GetAttributeValue("audiencescore", "");
 
-                string genero = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("% Change"))
-                    .ToList()[0].FirstChild.FirstChild.InnerText;
+                string sinopsis = htmlDoc.DocumentNode.Descendants("p")
+                .Where(node => node.GetAttributeValue("data-qa", "").
+                Contains("series-info-description")).ToList().First().InnerText.Trim();
 
-                string premier = htmlDoc.DocumentNode.SelectNodes("td")
-                    .Where(node => node.GetAttributeValue("aria-label", "")
-                    .Contains("% Change"))
-                    .ToList()[0].FirstChild.FirstChild.InnerText;
+                var plataformas = htmlDoc.DocumentNode.Descendants("where-to-watch-meta")
+                .Where(node => node.GetAttributeValue("data-qa", "").Contains("affiliate-item"))
+                .ToList();
+
+                string total = "";
+                foreach (var node in plataformas)
+                {
+                    total += node.GetAttributeValue("affiliate", "-") + "";
+
+                }
+
+                string genero = "";
+                string premier = "";
+
+                var info_tvshow = htmlDoc.DocumentNode.Descendants("li")
+               .Where(node => node.GetAttributeValue("class", "").Contains("info-item")).ToList();
+
+                foreach (var node in info_tvshow)
+                {
+                    if (!(node == info_tvshow[0]))
+                    {
+                        premier = "";
+                        
+                    }
+                    else
+                    {
+                        genero = node.Descendants("span").Where(node => node.GetAttributeValue("class", "")
+                        .Contains("info-item-value")).ToList().First().InnerText.Trim();
+                    }
+                }
 
                 return new TvShow
                 {
                     Titulo = titulo,
+                    Img = img,
+                    plataformas = total,
                     Url = url,
                     Calificacion_critica = calificacion_critica,
                     Calificacion_audiencia = calificacion_audiencia,

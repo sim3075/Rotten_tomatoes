@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rotten_tomatoes.Data;
 
@@ -10,9 +11,11 @@ using Rotten_tomatoes.Data;
 namespace Rotten_tomatoes.Migrations
 {
     [DbContext(typeof(Rotten_tomatoesContext))]
-    partial class Rotten_tomatoesContextModelSnapshot : ModelSnapshot
+    [Migration("20230512012248_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,93 +67,6 @@ namespace Rotten_tomatoes.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pelicula");
-                });
-
-            modelBuilder.Entity("Rotten_tomatoes.Models.TopPeliculas", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Calificacion_audiencia")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Calificacion_critica")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Duracion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Genero")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Img")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Premier")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sinopsis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("plataformas")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TopPeliculas");
-                });
-
-            modelBuilder.Entity("Rotten_tomatoes.Models.TopTvShow", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Calificacion_audiencia")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Calificacion_critica")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Genero")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Img")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Premier")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sinopsis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("plataformas")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TopTvShow");
                 });
 
             modelBuilder.Entity("Rotten_tomatoes.Models.TvShow", b =>

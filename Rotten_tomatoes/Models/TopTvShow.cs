@@ -1,6 +1,6 @@
 ﻿namespace Rotten_tomatoes.Models
 {
-    public class TvShow
+    public class TopTvShow
     {
         public int Id { get; set; }
         public string Url { get; set; }
@@ -13,8 +13,5 @@
         public string? Genero { get; set; }
 
         public string? Premier { get; set; }
-
-
-
     }
 }
